@@ -122,7 +122,6 @@ def recent_ratings(ratings):
     for i in ratings:
         substr +='<li><a href = "https://review.udacity.com/#!/reviews/' + str(i) + '">' + str(i) + '</a></li>'
     substr += '</ul>'
-    print(substr)
     return substr
 
 def plot_offline(fig):
@@ -143,8 +142,6 @@ def build_report(df):
     df['created_at'] = pd.to_datetime(df['created_at'])
     df = df.sort_values(by='created_at', ascending=True)
     df['rolling'] = df.groupby('passed')['average_score'].rolling(20).mean().reset_index(0, drop=True)
-    print(low_rated)
-    print(df.head(12))
 
     ## Pass Fail Data
     scores_by_passfail = df[['passed','average_score']].groupby('passed').agg(['count', 'mean']).reset_index()
@@ -285,8 +282,6 @@ def build_report(df):
                     <div class="col-md-12">
                     ''' + line + ''' </div>
                 </div><hr>
-
-
             <div class="container">
                 <div class="row mb-2">
                     
@@ -303,11 +298,7 @@ def build_report(df):
 
 	  	    </div><hr><br>
 	  	</div> 
-
-
-
-
-	    </body>
+    </body>
 	</html>'''
 
     with open("student_feedback_report.html", 'w') as f:
